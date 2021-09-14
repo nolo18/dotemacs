@@ -116,6 +116,20 @@ Instalar =use-package= y configurarlo para integrarlo con straight
 #+end_src
 
 * Apariencia
+Quiero que mi editor tenga un aspecto agradable y limpio.
+
+** modus-themes
+[[https://protesilaos.com/modus-themes/][home]]
+Después de probar una gran cantidad de esquemas de color, tanto claros, como oscuros, no he visto nada mejor que estos dos temas complementarios.
+Son altamente configurables, y tanto el tema claro como el oscuro son de los más cómodos de leer que he visto.
+
+#+begin_src emacs-lisp
+  (use-package modus-themes
+    :config
+    (modus-themes-load-themes)
+    (modus-themes-load-operandi))
+#+end_src
+
 * Útiles
 Colección de paquetes de utilidad general que facilitan mucho la vida.
 
