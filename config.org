@@ -117,7 +117,6 @@ Instalar =use-package= y configurarlo para integrarlo con straight
 
 * Apariencia
 * Útiles
-
 Colección de paquetes de utilidad general que facilitan mucho la vida.
 
 ** which-key
@@ -128,6 +127,14 @@ Después de tantos años usando =Emacs=, soy incapaz de recordar mas del 1% de l
   (use-package which-key
     :config
     (which-key-mode 1))
+#+end_src
+
+** magit
+[[https://magit.vc/][home]]
+*magit* es una de las mejores, y más productivas herramientas que he visto para trabajar con repositorios git.
+
+#+begin_src emacs-lisp
+  (use-package magit)
 #+end_src
 
 * Apátridas
@@ -179,7 +186,7 @@ El tratamiento de los espacios en blanco al final de las lineas está más que c
   (setq require-final-newline t)
 #+end_src
 
-* Tareas pendientes [0/18]
+* Tareas pendientes [0/19]
 
 Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de cosas que quiero hacer, si no, las olvido rápidamente.
 
@@ -261,6 +268,12 @@ Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de co
 [[which-key]]
 
 Existe una función muy interesante que te muestra solo los atajos de teclado del "major-mode" correspondiente al actual buffer. Es muy interesante y mucho más práctico que =C-h m=. Quizá sea conveniente asignarle un atajo de teclado.
+
+** TODO Configurar Magit
+
+[[magit]]
+
+No se si voy a necesitar alguna configuración adicional, pero no está de más echar un vistazo.
 
 ** TODO Configurar =todo keywords= locales para este fichero.
 Esto pinta que va a ser un fichero conplejo, y aprovechando la potencia de /org-mode/ quiero tener controlado todo lo que voy haciendo. Por ello quiero tener distintos estados para las tareas en este fichero, que me ayuden a encontrar facilmente lo que estoy buscando. Por ejemplo, no son los mismos estados para las tareas pendientes (TODO-INVESTIGANDO-ENCURSO-HECHA-CANCELADA) que para las configuraciones en prueba (PROBANDO-REFINANDO-ADMITIDA), o algo, asi. Que tengan un log con las fechas de los cambios es un plus.
