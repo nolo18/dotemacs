@@ -26,16 +26,215 @@ Como bien explica en la documentación, esta variable es local para cada fichero
   (setq lexical-binding t)
 #+end_src
 
+Los valores por defecto de las siguientes opciones me resultan bastante intrusivos, así como incómodos, cabiémoslos por otros más adecuados.
 
+#+begin_src emacs-lisp
+  (setq
+   ;; Omitir la pantalla de vienvenida
+   inhibit-startup-screen t
+   ;; No necesito que me recuerden para que sirve el *scratch* buffer
+   initial-scratch-message nil
+   ;; Dos espacios despues del punto y final de una frase es una falta
+   ;; de ortografía.
+   sentence-end-double-space nil
+   ;; No necesito avisos visuales o sonoros de ningún tipo.
+   ring-bell-function 'ignore
+   ;; Cuando deselecciono algo quiero desactivar la marca.
+   mark-even-if-inactive nil
+   ;; Las búsquedas deben diferenciar mayúsculas y minúsculas por defecto.
+   case-fold-search nil
+   )
+#+end_src
 
+El principio de ahorro es importante.
 
+#+begin_src emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+Es estupendo que =Emacs= soporte gran variedad de codificaciones de caracteres, pero UTF-8 debe ser siempre, siempre el preferido.
+
+#+begin_src emacs-lisp
+  (set-charset-priority 'unicode)
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+  (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+#+end_src
+
+=Emacs= tiende a llenar mi sistema de archivos con copias de seguridad, archivos temporales de autosalvado y similares, ya que trabaja bajo la premisa de que varios usuarios pueden estar modificando el mismo fichero a la vez. No es mi caso, así que es mejor desactivar todas esas copias de respaldo... Correré el riesgo!!!!
+
+#+begin_src emacs-lisp
+  (setq
+   make-backup-files nil
+   auto-save-default nil
+   create-lockfiles nil)
+#+end_src
 
 * Apátridas
-En esta sección se encentran configuraciones, que realmente todavía no tengo claro dónde encajan.
+
+Este apartado contiene las configuraciones para las que todavía no he decidido un apartado específico dentro de este fichero.
 
 _Información Personal:_ Esta información es útil a la hora de utilizar plantillas y otras opciones del editor.
 
 #+begin_src emacs-lisp
   (setq user-full-name "M. Márquez"
         user-mail-address "nolo18@khelnet.xyz")
+#+end_src
+
+* En pruebas
+
+Todas las configuraciones contenidas en este apartado están en periodo de pruebas, es decir, que todavía no son definitivas, o no están bien definidas todavía.
+
+** Todas las interacciones en el minibuffer.
+Esta configuración hace que cualquier interacción, aunque proceda de una acción del ratón, se gestione en el minibuffer. En un primer momento parece interesante, puesto que mi idea es utilizar el ratón lo menos posible. Pero puede que sea poco útil en el caso de =flyspell=. Esto tengo que mirarlo detenidamente.
+
+#+begin_src emacs-lisp
+  (setq use-dialog-box nil)
+#+end_src
+
+** C-k borra la linea completa
+
+Esta es la misma funcionalidad que en vim/nvim. Pero últimamente me he acostumbrado a borrar desde la posición actual hasta el final y no se si quiero cambiar eso. Lo voy a probar un tiempo en cualquier caso.
+
+#+begin_src emacs-lisp
+  (setq kill-whole-line t)
+#+end_src
+
+** Ubicación de /custom_file/
+=Emacs= almacena cualquier configuración que se realice a través de su sistema de configuración visual o utilizando la función =custom-set-variable= en el archivo de configuración inicial, o si se define este fichero en la variable =custom-file=. De igual modo, se almacena cierta información de seguridad y fiabilidad de algunos esquemas de color y demás.
+
+Yo quiero mi archivo de configuración limpio de intrusiones de cualquier tipo, así que prefiero especificar el archivo donde guardar estas configuraciones automáticas. (Aunque no creo que hayan muchas).
+
+*Nota:* La ubicación de este fichero aún no es definitiva.
+
+#+begin_src emacs-lisp
+  (setq custom-file (expand-file-name ".custom.el" user-emacs-directory))
+#+end_src
+
+** Espacios en blanco al final
+El tratamiento de los espacios en blanco al final de las lineas está más que claro... Eliminarlos sin piedad!!!!... Además de añadir una linea en blanco al final de los archivos que está siendo la regla ultimamente. Hagamoslo de forma automática.
+
+#+begin_src emacs-lisp
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
+  (setq require-final-newline t)
+#+end_src
+
+* Tareas pendientes [0/15]
+
+Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de cosas que quiero hacer, si no, las olvido rápidamente.
+
+** TODO Configurar =todo keywords= locales para este fichero.
+Esto pinta que va a ser un fichero conplejo, y aprovechando la potencia de /org-mode/ quiero tener controlado todo lo que voy haciendo. Por ello quiero tener distintos estados para las tareas en este fichero, que me ayuden a encontrar facilmente lo que estoy buscando. Por ejemplo, no son los mismos estados para las tareas pendientes (TODO-INVESTIGANDO-ENCURSO-HECHA-CANCELADA) que para las configuraciones en prueba (PROBANDO-REFINANDO-ADMITIDA), o algo, asi. Que tengan un log con las fechas de los cambios es un plus.
+
+** TODO Etiquetas
+El uso de etiquetas es muy útil a la hora de buscar cosas, pero definir bien las etiquetas va a ser algo engorroso.
+
+** TODO Tabuladores
+Todavía no tengo claro si quiero utilizar tabuladores o espacios para indentar mis ficheros. Es algo que tengo que estudiar cuidadosamente.
+
+** TODO /user-emacs-directory/ limpio
+Quiero que mi directorio de configuración esté limpio. En otros tiempos era muy buena idea tener todo lo relativo a emacs en el directorio de configuración, pero hoy en día con =xdesktop= todo ha cambiado, y existen un montón de directorios en el sistema mucho más apropiados para poner según que cosas. Estos directorios se guardan en variables de entorno, como /XDG_CONFIG_HOME, XDG_DATA_DIRS/, etc... Es ahí donde quiero poner todos los ficheros que genere esta configuración, así como los paquetes que instale.
+
+** TODO Emojis
+Una manera de configurar los emojis facilmente sería algo así.
+
+#+begin_src emacs-lisp :tangle no
+  (if ( version< "27.0" emacs-version )
+      (set-fontset-font "fontset-default" 'unicode "Apple Color Emoji" nil 'prepend)
+    (warn "This Emacs version is too old to properly support emoji."))
+#+end_src
+
+** TODO Desactivar atajos de teclados
+Hay un montón de atajos de teclados que, en mi humilde opinión, son del todo inútiles, al menos para mí, y que pueden ser pulsados de modo accidental. Mejor desactivarlos.
+
+** TODO variables locales.
+No tengo todavía claro si voy a definir algunas variables locales en mi configuración, seguramente si. Según parece pueden dar algún que otro problema de incómodos avisos de seguridad. La manera de desactivar esos avisos es habilitando las variables locales.
+
+#+begin_src emacs-lisp :tangle no
+  (setq enable-local-variables :all)
+#+end_src
+
+** TODO Seleccionar fuente por defecto.
+Creo que lo mejor es hacerlo con un =cond= y comprobar por orden de preferencia las fuentes instaladas en el equipo (así se hace más portable la configuración) y utilizar la primera coincidencia. Si no hay ninguna no cambiarla y dejar /DejaVu/ que es la que trae por defecto y tal vez emitir alguna alerta o algo...
+
+** TODO Resaltar parejas de paréntesis y demás...
+Lo mismo instalo smartparens y mato unos cuantos pájaros de un tiro.
+- Se autoinserta el cierre correspondiente
+- Se resalta el par asociado
+- Obtengo la funcionalidad de paredit con =spartparens-strict-mode=
+
+#+begin_src emacs-lisp
+  (show-paren-mode 1)
+#+end_src
+
+** TODO fill-column y amigos.
+Para editar texto plano puede ser muy interesante la función =fill-paragraph= (M-q), que justifica el texto a un ancho determinado atendiendo al valor de la variable =fill-column=. Puede ser muy interesante fijar de modo local según el tipo de fichero esta variable y utilizar esta funcionalidad interesante, así como =display-fill-column-indicator-mode=.
+
+** TODO Fácil acceso al archivo de configuración.
+Sería muy interesante fijar un atajo fácil de teclado para abrir el archivo de configuración, y crear la función correspondiente.
+*Nota:* Aquí sería interesante el tener ese archivo fijado a una variable global definida con =defvar=.
+Otra opción sería instalar una pantalla de inicio que facilite estas tareas, aunque no creo que quiera instalar esa cosa por ahora.
+
+** TODO minibuffer
+Hay muchas configuraciones del minibuffer que ni conocía. Habrá que echar un vistazo a eso. algunas de ellas son... =enable-recursive-minibuffers=, =minibuffer-depth-indicate-mode=, etc...
+
+** TODO Algunas funciones interesantes.
+Buscando en las configuraciones de otras personas, he encontrado algunas funciones muy interesantes que puedo utilizar en mi vida diaria...
+
+*** kill-this-buffer
+Como suena, poder eliminar el buffer actual, sin más preguntas.
+
+#+begin_src emacs-lisp :tangle no
+  (defun kill-this-buffer ()
+    "Kill the current buffer."
+    (interactive)
+    (kill-buffer nil)
+    )
+  (bind-key "C-x k" #'kill-this-buffer)
+  (bind-key "C-x K" #'kill-buffer)
+#+end_src
+
+*** kill-all-buffers
+Esto podría ser interesante, para cuando empiece a trabajar con =Emacs= en modo cliente... Así podría cambiar de tarea facilmente... Aunque la función anterior me parece más interesante.
+
+#+begin_src emacs-lisp :tangle no
+  (defun kill-all-buffers ()
+    "Close all buffers."
+    (interactive)
+    ;; (maybe-unset-buffer-modified)
+    (save-some-buffers)
+    (let ((kill-buffer-query-functions '()))
+      (mapc 'kill-buffer (buffer-list))))
+#+end_src
+
+*** Cambiar al buffer =*scratch*= facilmente.
+Puede ser interesante acceder a este buffer facilmente... Habrá que ver si lo necesito muy a menudo.
+
+#+begin_src emacs-lisp :tangle no
+  (defun switch-to-scratch-buffer ()
+    "Switch to the current session's scratch buffer."
+    (interactive)
+    (switch-to-buffer "*scratch*"))
+
+  (bind-key "C-c a s" #'switch-to-scratch-buffer)
+#+end_src
+
+** TODO org-mode
+Definitivamente me pasaré toda la vida y no le sacaré ni la mitad de partido a org-mode... Pero por algo hay que empezar. He visto algunas opciones muy interesantes a las que habrá que prestar mucha más atención...
+- =org-return-follows-link=
+- =org-src-ask-before-returning-to-edit-buffer=
+- =org-src-window-setup= Esta es muy interesante porque define el comportamiento de la ventana de edición de código.
+- =org-foot-note-section=
+- Seguro que hay por ahí alguna opción para decidir si exportar los comentarios de los bloques de código o no.
+- etc...
+
+
+** TODO provide?
+Seria conveniente poner este último bloque de código.
+
+#+begin_src emacs-lisp :tangle no
+  (provide 'config.el)
 #+end_src
