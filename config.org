@@ -1,7 +1,7 @@
 #+title: Configuración de Emacs
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
-#+startup: indent showall
+#+startup: indent content
 ulmd:<2021-09-14 mar>
 
 * Descripción.
@@ -73,6 +73,49 @@ Es estupendo que =Emacs= soporte gran variedad de codificaciones de caracteres, 
    create-lockfiles nil)
 #+end_src
 
+
+* Gestor de paquetes
+
+Después de probar varias opciones, [[https://github.com/raxod502/straight.el][straight.el]] junto con [[https://github.com/jwiegley/use-package][use-package]] me parece la forma más adecuada de administrar los paquetes necesarios para esta configuración.
+Algunas de las ventajas:
++ straight.el instala los paquetes directamente desde los repositorios, con lo que se obtienen versiones más recientes.
++ Puedo decidir el directorio en el que straight.el instalará para después cargar los modulos.
++ straight.el se integra perfectamente con use-package.
++ use-package es un sistema de =macros= que facilita muchísimo las tareas de configuración de los distintos paquetes instalados.
+
+*Inicializar y configurar straight.el*
+
+No mostrar ningún reporte del proceso en el buffer =*straight-process*=
+
+#+begin_src emacs-lisp
+  (setq straight-process-buffer " ")
+#+end_src
+
+Instalar straight.el si no está instalado e inicializarlo.
+
+#+begin_src emacs-lisp
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+#+end_src
+
+Instalar =use-package= y configurarlo para integrarlo con straight
+
+#+begin_src emacs-lisp
+  (straight-use-package 'use-package)
+
+  (setq straight-use-package-by-default t)
+#+end_src
+
 * Apátridas
 
 Este apartado contiene las configuraciones para las que todavía no he decidido un apartado específico dentro de este fichero.
@@ -122,9 +165,84 @@ El tratamiento de los espacios en blanco al final de las lineas está más que c
   (setq require-final-newline t)
 #+end_src
 
-* Tareas pendientes [0/15]
+* Tareas pendientes [0/16]
 
 Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de cosas que quiero hacer, si no, las olvido rápidamente.
+
+** TODO Straight.el
+
+[[Gestor de paquetes]]
+
+*Nota:* ver [[variables locales.]] Aquí sería interesante tener definida ya una variable local para mi directorio "$HOME/.local/share/emacs". Creo que este es el directorio adecuado. /nvim lo usa/.
+
+- Seguramente habrá que comprobar que el fichero existe antes de hacer nada con straight.el. En caso de no existir crearlo.
+- De momento he indicado la ruta del directorio manualmente. Habrá que cambiarlo más adelante.
+
+** TODO Echar un vistazo a paquetes que son recomendados por muchos.
+  - [ ] undo-tree
+  - [ ] all-the-icons; all-the-icons-dired
+  - [ ] diminish (seguramente si) No quiero el "modeline" lleno de
+  información innecesaria.
+  - [ ] doom-themes; doom-modeline -> Quiero algo más limpio. Para
+  eso instalo doom directamente.
+  - [ ] tree-sitter Parece ser que hace bastante bien su trabajo
+  en cuanto al resaltado de sintaxis.
+  - [ ] centaru-tabs -> No creo que quiera pestañas pero echaré
+  un vistazo.
+  - [ ] sudo-edit -> Esto si es interesante si quiero editar ficheros
+  de configuración sin tener que hacerlo en consola.
+  - [ ] which-key -> Definitivamente si.
+  - [ ] bufler -> ¿?
+  - [ ] ace-window -> Definitivamente si. Después de haber estado
+  un tiempo utilizando "other-window" it is not a great thig. Mirar
+  esta configuración.
+     (use-package ace-window
+       :config
+       ;; Show the window designators in the modeline.
+       (ace-window-display-mode)
+
+        ;; Make the number indicators a little larger. I'm getting old.
+       (set-face-attribute 'aw-leading-char-face nil :height 2.0 :background "black")
+
+       (defun my-ace-window (args)
+         "As ace-window, but hiding the cursor while the action is active."
+         (interactive "P")
+         (cl-letf
+             ((cursor-type nil)
+              (cursor-in-non-selected-window nil))
+           (ace-window nil)))
+
+
+       :bind (("C-," . my-ace-window))
+       :custom
+       (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l) "Designate windows by home row keys, not numbers.")
+       (aw-background nil))
+
+  - [ ] org-bullets -> ¿Por qué no?
+  - [ ] magit -> Por supuestísimo.... (ejemplo)
+     (use-package magit
+     	   :diminish magit-auto-revert-mode
+     	   :diminish auto-revert-mode
+     	   :bind (("C-c g" . #'magit-status))
+     	   :custom
+     	   (magit-repository-directories '(("~/src" . 1)))
+     	   :config
+     	   (add-to-list 'magit-no-confirm 'stage-all-changes))
+
+   - [ ] Projectile -> Claro que si.. Mirar documentación por si hay
+   algo realmente interesante.
+   - [ ] Ivi, counsel, swiper -> Creo que vertico es más eficiente.
+   - [ ] flycheck -> Por ahora no.
+   - [ ] deadgrep -> ¿?
+   - [ ] visual-regexp
+   - [ ] company -> Seguramente si pero solo para elisp por ahora.
+   - [ ] lsp -> Por ahora no me voy a meter en eso... tengo doom-emacs
+   perfectamente configurado para eso.
+   - [ ] vterm -> Todo el mundo habla muy bien de ella, habrá que
+   echar un vistazo.
+   - [ ] yasnippet -> Seguramente si, pero por ahora no lo necesito.
+   - [ ] neotree -> Casi mejor treemacs.
+
 
 ** TODO Configurar =todo keywords= locales para este fichero.
 Esto pinta que va a ser un fichero conplejo, y aprovechando la potencia de /org-mode/ quiero tener controlado todo lo que voy haciendo. Por ello quiero tener distintos estados para las tareas en este fichero, que me ayuden a encontrar facilmente lo que estoy buscando. Por ejemplo, no son los mismos estados para las tareas pendientes (TODO-INVESTIGANDO-ENCURSO-HECHA-CANCELADA) que para las configuraciones en prueba (PROBANDO-REFINANDO-ADMITIDA), o algo, asi. Que tengan un log con las fechas de los cambios es un plus.
