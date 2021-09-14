@@ -1,0 +1,41 @@
+#+title: Configuración de Emacs
+#+author: M. Márquez
+#+email: nolo18@khelent.xyz
+#+startup: indent showall
+ulmd:<2021-09-14 mar>
+
+* Descripción.
+Después de muchos años usando [[https://www.gnu.org/software/emacs/][Emacs]], tanto con configuraciones muy básicas hechas por mi como utilizando otras prestablecidas, [[https://github.com/hlissner/doom-emacs][doom-emacs]] por ejemplo, en ninguno de los casos me he encontrado realmente cómodo.
+
+En el primero de los casos, configuracines muy básicas hechas por mi, bien por falta de tiempo o por falta de ganas, estas configuraciones, ni cubrían todas mis necesidades, ni utilizaban apenas todo el potencial que tiene este editor.
+
+En el segundo de los casos, supongo que por ser configuraciones muy generales, o tal vez por ser hechas por otras personas, tampoco se adaptaban muy bien a mi modo de trabajo. Además, últimamente me había dado cuenta que pasaba más tiempo intentando averiguar cómo deshabilitar cosas en =doom-emacs= porque no me gustaban que disfrutando del entorno. Realmente =doom-emacs= es una muy buena configuración, pero añade una capa de personalización tan grande al editor que lo hace incompatible conmigo.
+
+Por todo ello nace este proyecto, como un intento serio de adaptar =Emacs= realmente a mis necesidades y gustos, y de paso aprender cosas interesantes y disfrutar en el proceso.
+
+* Opciones por defecto.
+
+Seamos honestos, la configuración por defecto de =Emacs= es, desde mi punto de vista, bastante anticuada. Sige aferrada a convicciones informática de los ochenta. Hoy en día han cambiado mucho las cosas, y si bien entonces eran muy prácticas, hoy en día, más que prácticas, pueden resultar incluso molestas, en el caso de algunas de ellas...
+
+Arreglemos eso.
+
+*Nota:* Para no tener problemas más adelante en el proceso de configuración, es muy importante dejar claro que queremos utilizar en todo el fichero =lexical-binding=. ¿Por qué?, porque quiero dejar bien acotado y fijado el ámbito de las variables. (No entiendo cómo es algo que no viene establecido por defecto).
+Como bien explica en la documentación, esta variable es local para cada fichero y debe explícitamente ser fijada en la primera línea del archivo.
+
+#+begin_src emacs-lisp
+  (setq lexical-binding t)
+#+end_src
+
+
+
+
+
+* Apátridas
+En esta sección se encentran configuraciones, que realmente todavía no tengo claro dónde encajan.
+
+_Información Personal:_ Esta información es útil a la hora de utilizar plantillas y otras opciones del editor.
+
+#+begin_src emacs-lisp
+  (setq user-full-name "M. Márquez"
+        user-mail-address "nolo18@khelnet.xyz")
+#+end_src
