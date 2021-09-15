@@ -44,6 +44,8 @@ Los valores por defecto de las siguientes opciones me resultan bastante intrusiv
    mark-even-if-inactive nil
    ;; Las búsquedas deben diferenciar mayúsculas y minúsculas por defecto.
    case-fold-search nil
+   ;; Ir a la ventana de ayuda cuando la abro
+   help-window-select t
    )
 #+end_src
 
@@ -165,8 +167,15 @@ Colección de paquetes de utilidad general que facilitan mucho la vida.
 [[https://github.com/emacsmirror/diminish][home]]
 Con el uso de muchos modos menores, el apartado del modeline destinado a los modos menores, se va llenando de numerosos indicadores, de modos menores de los que realmente no necesito información alguna. Mejor limpiarlos.
 
+Diminish se integra muy bien con =use-package=, así que en el caso de los paquetes instalados por mi, puedo quitarlos desde use-package con la directiva =:diminish=.
+
+Para el resto, puedo hacerlo aquí directamente.
+
 #+begin_src emacs-lisp
-  (use-package diminish)
+  (use-package diminish
+    :init
+    (diminish 'auto-revert-mode)
+    (diminish 'eldoc-mode))
 #+end_src
 
 ** magit
@@ -209,6 +218,14 @@ El paquete [[https://github.com/minad/marginalia][marginalia]] inserta interesan
   (use-package marginalia
     :init
     (marginalia-mode 1))
+#+end_src
+
+** sudo-edit
+[[https://github.com/nflath/sudo-edit][home]] (muy parca en detalles)
+Es muy interesante tener la opción de editar archivos como superusuario manteniendo toda mi configuración.
+
+#+begin_src emacs-lisp
+  (use-package sudo-edit)
 #+end_src
 
 ** which-key
@@ -265,6 +282,8 @@ Yo quiero mi archivo de configuración limpio de intrusiones de cualquier tipo, 
 
 ** modus-themes
 Ya está hecha la primera configuración, a ver cómo va funcionando.
+Después de haber estado un tiempo probando esta configuración encuentro demasiado fuertes los colores de los encabezados tal y como están ahora configurados los temas... Supongo que habrá que echarles un vistazo a ver si puedo suavizar esta sensación un poco.
+
 ** Espacios en blanco al final
 El tratamiento de los espacios en blanco al final de las lineas está más que claro... Eliminarlos sin piedad!!!!... Además de añadir una linea en blanco al final de los archivos que está siendo la regla ultimamente. Hagamoslo de forma automática.
 
@@ -273,7 +292,7 @@ El tratamiento de los espacios en blanco al final de las lineas está más que c
   (setq require-final-newline t)
 #+end_src
 
-* Tareas pendientes [1/20]
+* Tareas pendientes [1/21]
 
 Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de cosas que quiero hacer, si no, las olvido rápidamente.
 
@@ -296,7 +315,7 @@ Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de co
   en cuanto al resaltado de sintaxis.
   - [ ] centaru-tabs -> No creo que quiera pestañas pero echaré
   un vistazo.
-  - [ ] sudo-edit -> Esto si es interesante si quiero editar ficheros
+  - [-] sudo-edit -> Esto si es interesante si quiero editar ficheros
   de configuración sin tener que hacerlo en consola.
   - [-] which-key -> Definitivamente si.
   - [ ] bufler -> ¿?
@@ -373,6 +392,9 @@ Esto pinta que va a ser un fichero conplejo, y aprovechando la potencia de /org-
 
 ** TODO Etiquetas
 El uso de etiquetas es muy útil a la hora de buscar cosas, pero definir bien las etiquetas va a ser algo engorroso.
+
+** TODO Echar un vistazo a ERC
+Puede ser interesante tener el irc integrado aquí.
 
 ** TODO Tabuladores
 Todavía no tengo claro si quiero utilizar tabuladores o espacios para indentar mis ficheros. Es algo que tengo que estudiar cuidadosamente.
