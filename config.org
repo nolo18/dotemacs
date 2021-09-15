@@ -200,7 +200,7 @@ El tratamiento de los espacios en blanco al final de las lineas está más que c
   (setq require-final-newline t)
 #+end_src
 
-* Tareas pendientes [0/19]
+* Tareas pendientes [0/20]
 
 Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de cosas que quiero hacer, si no, las olvido rápidamente.
 
@@ -288,6 +288,12 @@ Existe una función muy interesante que te muestra solo los atajos de teclado de
 [[magit]]
 
 No se si voy a necesitar alguna configuración adicional, pero no está de más echar un vistazo.
+
+** TODO Configurar modus-themes
+
+[[modus-themes]]
+
+Hay un sinfín de opciones que configurar en estos temas... Habrá que echarles a todas un buen vistazo y ver cuáles quiero cambiar.
 
 ** TODO Configurar =todo keywords= locales para este fichero.
 Esto pinta que va a ser un fichero conplejo, y aprovechando la potencia de /org-mode/ quiero tener controlado todo lo que voy haciendo. Por ello quiero tener distintos estados para las tareas en este fichero, que me ayuden a encontrar facilmente lo que estoy buscando. Por ejemplo, no son los mismos estados para las tareas pendientes (TODO-INVESTIGANDO-ENCURSO-HECHA-CANCELADA) que para las configuraciones en prueba (PROBANDO-REFINANDO-ADMITIDA), o algo, asi. Que tengan un log con las fechas de los cambios es un plus.
