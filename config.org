@@ -2,7 +2,7 @@
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+startup: indent content
-ulmd:<2021-09-14 mar>
+ulmd:<2021-09-15 mié>
 
 * Descripción.
 Después de muchos años usando [[https://www.gnu.org/software/emacs/][Emacs]], tanto con configuraciones muy básicas hechas por mi como utilizando otras prestablecidas, [[https://github.com/hlissner/doom-emacs][doom-emacs]] por ejemplo, en ninguno de los casos me he encontrado realmente cómodo.
@@ -125,8 +125,24 @@ Son altamente configurables, y tanto el tema claro como el oscuro son de los má
 
 #+begin_src emacs-lisp
   (use-package modus-themes
-    :config
+    :init
+    (setq
+     modus-themes-italic-constructs t	         ;Cursivas en comentarios y demás
+     modus-themes-syntax '(faint alt-syntax)       ;Coloreado de sintaxis más llamativo
+     modus-themes-links '(faint neutral-underline) ;Links subrayados
+     modus-themes-prompts '(intense bold)		 ;Apariencia del minibuffer
+     modus-themes-mode-line '(accented)		 ;Apariencia del modeline
+     modus-themes-completions 'opinionated		 ;Apariencia de los pupups de autocompletado
+     modus-themes-hl-line nil			 ;Tendré que ir probando
+     modus-themes-paren-match '(bold)		 ;En negrita el complementario.
+     modus-themes-region '(bg-only)		 ;Aspecto de las selecciones
+     modus-themes-diffs 'desaturated		 ;Aspecto de los diffs en ficheros.
+     modus-themes-org-blocks 'tinted-background	 ;Fondo de los bloques de código
+     modus-themes-headings '((t . rainbow))	 ;Coloreado de los encabezados
+     modus-themes-scale-headings t		 ;Hacer los encabezados más grandes.
+     )                                             ;Se puede personalizar el tamaño (ver doc)
     (modus-themes-load-themes)
+    :config
     (modus-themes-load-operandi))
 #+end_src
 
