@@ -19,12 +19,12 @@
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-
+;; A partir de Emacs version 27 este fichero se carga antes de los componentes
+;; visuales del programa pertiendo algunas configuraciones muy interesantes.
 
 ;;; Code:
 
-;; A partir de Emacs version 27 este fichero se carga antes de los componentes
-;; visuales del programa pertiendo algunas configuraciones muy interesantes.
+
 ;; En principio todos los ficheros que utilize tendrán el comentario correspondiente
 ;; para fijar esta variable, pero siguiendo las indicaciones de su documentación
 ;; hay que fijarla en la primera linea de código del fichero correspondiente.
@@ -46,10 +46,14 @@
 
 ;; TODO: Puede que se agregen otras configuraciones aquí más adelante.
 
-;; TODO: Modificar "default-frame-alist" para:
+;; TODO: Modificar "initial-frame-alist" para:
 ;; - Empezar Emacs maximizado (ya veré si el resto de "frames" también.
 ;; - Eliminar barras de herramientas, scroll, tooltip, menu, etc... Por
 ;; ahora, no.
+;; NOTA: El resto de frames, tal vez no sea buena idea maximizarlas.
+
+(setq initial-frame-alist
+      '((fullscreen . maximized)))	;Iniciar Emacs maximizado
 
 (provide 'early-init)
 ;;; early-init.el ends here
