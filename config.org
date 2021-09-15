@@ -161,14 +161,12 @@ Son altamente configurables, y tanto el tema claro como el oscuro son de los má
 * Útiles
 Colección de paquetes de utilidad general que facilitan mucho la vida.
 
-** which-key
-[[https://github.com/justbur/emacs-which-key][home]]
-Después de tantos años usando =Emacs=, soy incapaz de recordar mas del 1% de los atajos de teclado. =which-key= es el mejor compañero para ayudarme a recordarlos, así como para aprender algunos nuevos.
+** diminish
+[[https://github.com/emacsmirror/diminish][home]]
+Con el uso de muchos modos menores, el apartado del modeline destinado a los modos menores, se va llenando de numerosos indicadores, de modos menores de los que realmente no necesito información alguna. Mejor limpiarlos.
 
 #+begin_src emacs-lisp
-  (use-package which-key
-    :config
-    (which-key-mode 1))
+  (use-package diminish)
 #+end_src
 
 ** magit
@@ -178,6 +176,18 @@ Después de tantos años usando =Emacs=, soy incapaz de recordar mas del 1% de l
 #+begin_src emacs-lisp
   (use-package magit)
 #+end_src
+
+** which-key
+[[https://github.com/justbur/emacs-which-key][home]]
+Después de tantos años usando =Emacs=, soy incapaz de recordar mas del 1% de los atajos de teclado. =which-key= es el mejor compañero para ayudarme a recordarlos, así como para aprender algunos nuevos.
+
+#+begin_src emacs-lisp
+  (use-package which-key
+    :diminish
+    :config
+    (which-key-mode 1))
+#+end_src
+
 
 * Apátridas
 
@@ -307,13 +317,13 @@ Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de co
    - [ ] yasnippet -> Seguramente si, pero por ahora no lo necesito.
    - [ ] neotree -> Casi mejor treemacs.
 
-** TODO Configurar which-key
+** INVESTIGANDO Configurar which-key
 
 [[which-key]]
 
 Existe una función muy interesante que te muestra solo los atajos de teclado del "major-mode" correspondiente al actual buffer. Es muy interesante y mucho más práctico que =C-h m=. Quizá sea conveniente asignarle un atajo de teclado.
 
-** TODO Configurar Magit
+** INVESTIGANDO Configurar Magit
 
 [[magit]]
 
