@@ -1,6 +1,7 @@
 #+title: Configuración de Emacs
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
+#+todo: TODO INVESTIGANDO ENCURSO | HECHO
 #+startup: indent content
 ulmd:<2021-09-15 mié>
 
@@ -118,6 +119,17 @@ Instalar =use-package= y configurarlo para integrarlo con straight
 * Apariencia
 Quiero que mi editor tenga un aspecto agradable y limpio.
 
+** Fuente por defecto
+
+La idea de esta configuración es que sea portable. Por eso, no voy a fijar una sola fuente como predeterminada, sino una colección de ellas por orden de preferencia y fijar la primera correspondencia instalada en el sistema. Si no hay ninguna de ellas, dejar /DejaVu/ que es la que viene por defecto y que no está del todo mal.
+
+#+begin_src emacs-lisp
+  (cond
+   ((x-family-fonts "SauceCodePro Nerd Font Mono")
+    (set-frame-font "SauceCodePro Nerd Font Mono"))
+   )
+#+end_src
+
 ** modus-themes
 [[https://protesilaos.com/modus-themes/][home]]
 Después de probar una gran cantidad de esquemas de color, tanto claros, como oscuros, no he visto nada mejor que estos dos temas complementarios.
@@ -208,6 +220,8 @@ Yo quiero mi archivo de configuración limpio de intrusiones de cualquier tipo, 
   (setq custom-file (expand-file-name ".custom.el" user-emacs-directory))
 #+end_src
 
+** modus-themes
+Ya está hecha la primera configuración, a ver cómo va funcionando.
 ** Espacios en blanco al final
 El tratamiento de los espacios en blanco al final de las lineas está más que claro... Eliminarlos sin piedad!!!!... Además de añadir una linea en blanco al final de los archivos que está siendo la regla ultimamente. Hagamoslo de forma automática.
 
@@ -216,7 +230,7 @@ El tratamiento de los espacios en blanco al final de las lineas está más que c
   (setq require-final-newline t)
 #+end_src
 
-* Tareas pendientes [0/20]
+* Tareas pendientes [1/20]
 
 Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de cosas que quiero hacer, si no, las olvido rápidamente.
 
@@ -305,13 +319,13 @@ Existe una función muy interesante que te muestra solo los atajos de teclado de
 
 No se si voy a necesitar alguna configuración adicional, pero no está de más echar un vistazo.
 
-** TODO Configurar modus-themes
+** HECHO DONE Configurar modus-themes
 
 [[modus-themes]]
 
 Hay un sinfín de opciones que configurar en estos temas... Habrá que echarles a todas un buen vistazo y ver cuáles quiero cambiar.
 
-** TODO Configurar =todo keywords= locales para este fichero.
+** ENCURSO Configurar =todo keywords= locales para este fichero.
 Esto pinta que va a ser un fichero conplejo, y aprovechando la potencia de /org-mode/ quiero tener controlado todo lo que voy haciendo. Por ello quiero tener distintos estados para las tareas en este fichero, que me ayuden a encontrar facilmente lo que estoy buscando. Por ejemplo, no son los mismos estados para las tareas pendientes (TODO-INVESTIGANDO-ENCURSO-HECHA-CANCELADA) que para las configuraciones en prueba (PROBANDO-REFINANDO-ADMITIDA), o algo, asi. Que tengan un log con las fechas de los cambios es un plus.
 
 ** TODO Etiquetas
@@ -342,8 +356,9 @@ No tengo todavía claro si voy a definir algunas variables locales en mi configu
   (setq enable-local-variables :all)
 #+end_src
 
-** TODO Seleccionar fuente por defecto.
+** ENCURSO Seleccionar fuente por defecto.
 Creo que lo mejor es hacerlo con un =cond= y comprobar por orden de preferencia las fuentes instaladas en el equipo (así se hace más portable la configuración) y utilizar la primera coincidencia. Si no hay ninguna no cambiarla y dejar /DejaVu/ que es la que trae por defecto y tal vez emitir alguna alerta o algo...
+En principio está puesta /SauceCodePro Nerd Font Mono/ como fuente por defecto y no hay más opciones en el cond. Habrá que ir probando.
 
 ** TODO Resaltar parejas de paréntesis y demás...
 Lo mismo instalo smartparens y mato unos cuantos pájaros de un tiro.
