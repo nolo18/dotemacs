@@ -177,6 +177,40 @@ Con el uso de muchos modos menores, el apartado del modeline destinado a los mod
   (use-package magit)
 #+end_src
 
+** vertico
+[[https://github.com/minad/vertico][home]]
+Me gusta seleccionar archivos, buffers y demás de forma interactiva, y según parece este nuevo complemento es de lo más liviano que conozco.
+/ido-mode/ -> Se me queda corto
+/ivy y amigos/ -> No necesito tantas funciones.
+
+Aunque para afinar la configuración =vertico= requiere ciertos plugins, sigue siendo más liviano, y según proclama se integra mucho mejor con Emacs sin tener que hacer muchas configuraciones adicionales.
+
+#+begin_src emacs-lisp
+  (use-package vertico
+    :config
+    (setq vertico-cycle t)
+    :init
+    (vertico-mode))
+#+end_src
+
+El paquete [[https://github.com/oantolin/orderless][orderless]] ofrece soporte para completados parciales (escribiendo partes de palabras) y también la utilización de comodines para, por ejemplo abrir varios ficheros a la vez. Es un estilo a /fzf/ para vim.
+
+#+begin_src emacs-lisp
+  (use-package orderless
+    :init
+    (setq completion-styles '(orderless)
+          completion-category-defaults nil
+          completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
+
+El paquete [[https://github.com/minad/marginalia][marginalia]] inserta interesantes anotaciones a las opciones de vertico.
+
+#+begin_src emacs-lisp
+  (use-package marginalia
+    :init
+    (marginalia-mode 1))
+#+end_src
+
 ** which-key
 [[https://github.com/justbur/emacs-which-key][home]]
 Después de tantos años usando =Emacs=, soy incapaz de recordar mas del 1% de los atajos de teclado. =which-key= es el mejor compañero para ayudarme a recordarlos, así como para aprender algunos nuevos.
@@ -187,7 +221,6 @@ Después de tantos años usando =Emacs=, soy incapaz de recordar mas del 1% de l
     :config
     (which-key-mode 1))
 #+end_src
-
 
 * Apátridas
 
