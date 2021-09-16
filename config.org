@@ -1,7 +1,7 @@
 #+title: Configuración de Emacs
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
-#+todo: TODO INVESTIGANDO ENCURSO | HECHO
+#+todo: TODO(t) INVESTIGANDO(i) ENCURSO(e) | HECHO(h)
 #+startup: indent content
 ulmd:<2021-09-15 mié>
 
@@ -144,15 +144,15 @@ Son altamente configurables, y tanto el tema claro como el oscuro son de los má
      modus-themes-italic-constructs t	         ;Cursivas en comentarios y demás
      modus-themes-syntax '(faint alt-syntax)       ;Coloreado de sintaxis más llamativo
      modus-themes-links '(faint neutral-underline) ;Links subrayados
-     modus-themes-prompts '(intense bold)		 ;Apariencia del minibuffer
-     modus-themes-mode-line '(accented)		 ;Apariencia del modeline
+     modus-themes-prompts '(bold)		 ;Apariencia del minibuffer
+     modus-themes-mode-line nil		 ;Apariencia del modeline
      modus-themes-completions 'opinionated		 ;Apariencia de los pupups de autocompletado
      modus-themes-hl-line nil			 ;Tendré que ir probando
      modus-themes-paren-match '(bold)		 ;En negrita el complementario.
      modus-themes-region '(bg-only)		 ;Aspecto de las selecciones
      modus-themes-diffs 'desaturated		 ;Aspecto de los diffs en ficheros.
      modus-themes-org-blocks 'tinted-background	 ;Fondo de los bloques de código
-     modus-themes-headings '((t . rainbow))	 ;Coloreado de los encabezados
+     modus-themes-headings nil	 ;Coloreado de los encabezados
      modus-themes-scale-headings t		 ;Hacer los encabezados más grandes.
      )                                             ;Se puede personalizar el tamaño (ver doc)
     (modus-themes-load-themes)
@@ -487,7 +487,7 @@ Puede ser interesante acceder a este buffer facilmente... Habrá que ver si lo n
   (bind-key "C-c a s" #'switch-to-scratch-buffer)
 #+end_src
 
-** TODO org-mode
+** ENCURSO org-mode
 Definitivamente me pasaré toda la vida y no le sacaré ni la mitad de partido a org-mode... Pero por algo hay que empezar. He visto algunas opciones muy interesantes a las que habrá que prestar mucha más atención...
 - =org-return-follows-link=
 - =org-src-ask-before-returning-to-edit-buffer=
