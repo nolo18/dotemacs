@@ -46,6 +46,10 @@ Los valores por defecto de las siguientes opciones me resultan bastante intrusiv
    case-fold-search nil
    ;; Ir a la ventana de ayuda cuando la abro
    help-window-select t
+   ;; No quiero ningún comando deshabilitado. Correré el riesgo!!!
+   disabled-command-function nil
+   ;; Dejar un poco de contexto al hacer scroll en la ventana.
+   scroll-margin 5
    )
 #+end_src
 
@@ -495,6 +499,9 @@ Definitivamente me pasaré toda la vida y no le sacaré ni la mitad de partido a
 - =org-foot-note-section=
 - Seguro que hay por ahí alguna opción para decidir si exportar los comentarios de los bloques de código o no.
 - etc...
+
+Creo que lo más sensato es tener un apartado solo para configurar orgmode.
+
 
 ** TODO provide?
 Seria conveniente poner este último bloque de código.
