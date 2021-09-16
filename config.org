@@ -243,6 +243,46 @@ Después de tantos años usando =Emacs=, soy incapaz de recordar mas del 1% de l
     (which-key-mode 1))
 #+end_src
 
+* Org-mode
+[[https://orgmode.org/][Org-mode]]
+
+Definitivamente es la razón por la que uno se enamora de Emacs.
+Es como una navaja suiza.
+Cuenta con tantas opciones de configuración que es casi mejor dedicarle un apartado diferente.
+
+** Opciones por defecto
+
+Org-mode cuenta con un montón de variables que configurar... (Seguramente me dejo alguna atrás)
+
+#+begin_src emacs-lisp
+  (setq
+   ;; Ocultar los caracteres para indicar negrita, cursiva y demás
+   org-hide-emphasis-markers t
+   ;; Visitar el enlace al pulsar ENTER sobre ellos
+   org-return-follows-link t
+   ;; Ir directamente al buffer de edición de un bloque de código
+   ;; si ya está abierto
+   org-src-ask-before-returning-to-edit-buffer t
+   ;; No quiero ningún encabezado para las notas al pie
+   org-footnote-section ""
+   ;; Cambiar los tres puntos por algo más atractivo
+   org-ellipsis " ↴"
+   ;; Todas las notas de estado se insertan en "drawers"
+   org-log-into-drawer t
+   ;; No quiero que al editar un bloque de código me reorganice
+   ;; todas las ventanas abiertas para dejarme dos
+   org-src-window-setup 'other-window
+   )
+#+end_src
+
+Aunque con los asteriscos queda bien, prefiero mostrar otros caracteres utf-8 más interesantes y agradables a la vista.
+[[https://github.com/sabof/org-bullets][org-bullets]] sirve para eso precisamente.
+
+#+begin_src emacs-lisp
+  (use-package org-bullets
+    :hook (org-mode . (lambda () (org-bullets-mode 1))))
+#+end_src
+
 * Apátridas
 
 Este apartado contiene las configuraciones para las que todavía no he decidido un apartado específico dentro de este fichero.
@@ -296,7 +336,7 @@ El tratamiento de los espacios en blanco al final de las lineas está más que c
   (setq require-final-newline t)
 #+end_src
 
-* Tareas pendientes [1/21]
+* Tareas pendientes [0/21]
 
 Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de cosas que quiero hacer, si no, las olvido rápidamente.
 
@@ -384,12 +424,6 @@ Existe una función muy interesante que te muestra solo los atajos de teclado de
 [[magit]]
 
 No se si voy a necesitar alguna configuración adicional, pero no está de más echar un vistazo.
-
-** HECHO DONE Configurar modus-themes
-
-[[modus-themes]]
-
-Hay un sinfín de opciones que configurar en estos temas... Habrá que echarles a todas un buen vistazo y ver cuáles quiero cambiar.
 
 ** ENCURSO Configurar =todo keywords= locales para este fichero.
 Esto pinta que va a ser un fichero conplejo, y aprovechando la potencia de /org-mode/ quiero tener controlado todo lo que voy haciendo. Por ello quiero tener distintos estados para las tareas en este fichero, que me ayuden a encontrar facilmente lo que estoy buscando. Por ejemplo, no son los mismos estados para las tareas pendientes (TODO-INVESTIGANDO-ENCURSO-HECHA-CANCELADA) que para las configuraciones en prueba (PROBANDO-REFINANDO-ADMITIDA), o algo, asi. Que tengan un log con las fechas de los cambios es un plus.
@@ -493,15 +527,19 @@ Puede ser interesante acceder a este buffer facilmente... Habrá que ver si lo n
 
 ** ENCURSO org-mode
 Definitivamente me pasaré toda la vida y no le sacaré ni la mitad de partido a org-mode... Pero por algo hay que empezar. He visto algunas opciones muy interesantes a las que habrá que prestar mucha más atención...
-- =org-return-follows-link=
-- =org-src-ask-before-returning-to-edit-buffer=
-- =org-src-window-setup= Esta es muy interesante porque define el comportamiento de la ventana de edición de código.
-- =org-foot-note-section=
 - Seguro que hay por ahí alguna opción para decidir si exportar los comentarios de los bloques de código o no.
 - etc...
 
 Creo que lo más sensato es tener un apartado solo para configurar orgmode.
 
+Castellanizar calendarios?
+
+Configurar =org-directory= para un rapido acceso a mis archivos de agenda y demás.
+
+Configurar los bloques de código que puedo ejecutar.
+
+** TODO diminish auto-revert-mode
+No sé muy bien por qué pero sigue apareciendo...
 
 ** TODO provide?
 Seria conveniente poner este último bloque de código.
