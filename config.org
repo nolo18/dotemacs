@@ -50,6 +50,8 @@ Los valores por defecto de las siguientes opciones me resultan bastante intrusiv
    disabled-command-function nil
    ;; Dejar un poco de contexto al hacer scroll en la ventana.
    scroll-margin 5
+   ;; No mostrar el cursor en las ventanas no seleccinadas
+   cursor-in-non-selected-windows nil
    )
 #+end_src
 
@@ -57,6 +59,12 @@ El principio de ahorro es importante.
 
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+El cursor mejor sin parpadeo
+
+#+begin_src emacs-lisp
+  (blink-cursor-mode -1)
 #+end_src
 
 Es estupendo que =Emacs= soporte gran variedad de codificaciones de caracteres, pero UTF-8 debe ser siempre, siempre el preferido.
@@ -190,6 +198,42 @@ Para el resto, puedo hacerlo aquí directamente.
   (use-package magit)
 #+end_src
 
+** Projectile
+[[https://docs.projectile.mx/projectile/index.html][docs]]
+Una librería muy interesante para manejar proyectos en Emacs.
+
+#+begin_src emacs-lisp
+  (use-package projectile
+    :init
+    (setq
+     ;; Ordena los ficheros y los buffers anteponiendo los
+     ;; utilizados más recientemente o los ficheros abiertos
+     ;; más recientemente
+     projectile-sort-order 'recentf
+     ;; TODO: "Caching" ficheros
+     ;; Resulta bueno para proyectos con mucos ficheros, a ver
+     ;; cómo funciona de modo general.
+     projectile-enable-caching t
+     ;; Abrir la carpeta de proyecto cuando cambio a un proyecto
+     ;; nuevo
+     projectile-switch-project-action 'projectile-dired
+     ;; Indicador a mostrar en el "modeline"
+     projectile-mode-line-function '(lambda () (format " [%s]" (projectile-project-name)))
+     )
+    (projectile-mode 1)
+    :bind (:map projectile-mode-map
+                ("C-c p" . projectile-command-map))
+    )
+#+end_src
+
+** sudo-edit
+[[https://github.com/nflath/sudo-edit][home]] (muy parca en detalles)
+Es muy interesante tener la opción de editar archivos como superusuario manteniendo toda mi configuración.
+
+#+begin_src emacs-lisp
+  (use-package sudo-edit)
+#+end_src
+
 ** vertico
 [[https://github.com/minad/vertico][home]]
 Me gusta seleccionar archivos, buffers y demás de forma interactiva, y según parece este nuevo complemento es de lo más liviano que conozco.
@@ -222,14 +266,6 @@ El paquete [[https://github.com/minad/marginalia][marginalia]] inserta interesan
   (use-package marginalia
     :init
     (marginalia-mode 1))
-#+end_src
-
-** sudo-edit
-[[https://github.com/nflath/sudo-edit][home]] (muy parca en detalles)
-Es muy interesante tener la opción de editar archivos como superusuario manteniendo toda mi configuración.
-
-#+begin_src emacs-lisp
-  (use-package sudo-edit)
 #+end_src
 
 ** which-key
@@ -271,7 +307,7 @@ Org-mode cuenta con un montón de variables que configurar... (Seguramente me de
    org-log-into-drawer t
    ;; No quiero que al editar un bloque de código me reorganice
    ;; todas las ventanas abiertas para dejarme dos
-   org-src-window-setup 'other-window
+   org-src-window-setup 'current-window
    )
 #+end_src
 
