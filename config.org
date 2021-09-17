@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-17 19:46:19>
+#+updated: <2021-09-17 19:58:50>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e) |CANCELADO(c@) HECHO(h!)
@@ -351,7 +351,7 @@ Esta configuración hace que cualquier interacción, aunque proceda de una acci�
 
 ** C-k borra la linea completa
 
-Esta es la misma funcionalidad que en vim/nvim. Pero últimamente me he acostumbrado a borrar desde la posición actual hasta el final y no se si quiero cambiar eso. Lo voy a probar un tiempo en cualquier caso.
+Esta es la misma funcionalidad que en vim/nvim. Pero últimamente me he acostumbrado a borrar desde la posición actual hasta el final y no se si quiero cambiar eso. Lo voy a probar un tiempo en cualquier caso. (de momento va perdiendo puntos).
 
 #+begin_src emacs-lisp
   (setq kill-whole-line t)
@@ -407,6 +407,22 @@ Mi interés es principalmente para el fichero de configuración, por lo que a ni
 
 #+end_src
 
+** INVESTIGANDO Modos de programación
+:LOGBOOK:
+- State "INVESTIGANDO" from              [2021-09-17 vie 19:52]
+:END:
+Me interesa activar de modo automático para todos los modos de programación algunas funcionalidades.
+- números de lienas
+- indicador de lineas largas
+- etc
+
+#+begin_src emacs-lisp
+  (add-hook 'prog-mode-hook #'(lambda ()
+                                (display-line-numbers-mode)
+                                ;; Show indicator at column 80
+                                (setq-local fill-column 80)
+                                (display-fill-column-indicator-mode)))
+#+end_src
 
 * Tareas pendientes [0/21]
 
@@ -545,8 +561,13 @@ Lo mismo instalo smartparens y mato unos cuantos pájaros de un tiro.
   (show-paren-mode 1)
 #+end_src
 
-** TODO fill-column y amigos.
+** INVESTIGANDO fill-column y amigos.
+:LOGBOOK:
+- State "INVESTIGANDO" from "TODO"       [2021-09-17 vie 19:51]
+:END:
 Para editar texto plano puede ser muy interesante la función =fill-paragraph= (M-q), que justifica el texto a un ancho determinado atendiendo al valor de la variable =fill-column=. Puede ser muy interesante fijar de modo local según el tipo de fichero esta variable y utilizar esta funcionalidad interesante, así como =display-fill-column-indicator-mode=.
+
+Quizá me interese hacer locales para todos los modos de programación la variable *fill-column*. En este ámbito, la usaría simplemente para activar el indicador de línea demasiado larga.
 
 ** TODO Fácil acceso al archivo de configuración.
 Sería muy interesante fijar un atajo fácil de teclado para abrir el archivo de configuración, y crear la función correspondiente.
