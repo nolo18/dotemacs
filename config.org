@@ -1,7 +1,7 @@
 #+title: Configuración de Emacs
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
-#+todo: TODO(t) INVESTIGANDO(i) ENCURSO(e) | HECHO(h)
+#+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e) |CANCELADO(c@) HECHO(h!)
 #+startup: indent content
 ulmd:<2021-09-15 mié>
 
@@ -308,6 +308,8 @@ Org-mode cuenta con un montón de variables que configurar... (Seguramente me de
    ;; No quiero que al editar un bloque de código me reorganice
    ;; todas las ventanas abiertas para dejarme dos
    org-src-window-setup 'current-window
+   ;; alinea las etiquetas en la columna 80
+   org-tags-column -80
    )
 #+end_src
 
@@ -317,6 +319,12 @@ Aunque con los asteriscos queda bien, prefiero mostrar otros caracteres utf-8 m�
 #+begin_src emacs-lisp
   (use-package org-bullets
     :hook (org-mode . (lambda () (org-bullets-mode 1))))
+#+end_src
+
+Quiero usar visual line mode siempre en org-mode (al menos de momento).
+
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook #'visual-line-mode)
 #+end_src
 
 * Apátridas
