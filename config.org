@@ -1,9 +1,9 @@
 #+title: Configuración de Emacs
+#+updated: <2021-09-17 19:46:19>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e) |CANCELADO(c@) HECHO(h!)
 #+startup: indent content
-ulmd:<2021-09-15 mié>
 
 * Descripción.
 Después de muchos años usando [[https://www.gnu.org/software/emacs/][Emacs]], tanto con configuraciones muy básicas hechas por mi como utilizando otras prestablecidas, [[https://github.com/hlissner/doom-emacs][doom-emacs]] por ejemplo, en ninguno de los casos me he encontrado realmente cómodo.
@@ -379,6 +379,34 @@ El tratamiento de los espacios en blanco al final de las lineas está más que c
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (setq require-final-newline t)
 #+end_src
+
+** INVESTIGANDO Insertar automáticamente la fecha de modificación para los ficheros org
+:LOGBOOK:
+- State "INVESTIGANDO" from              [2021-09-17 vie 19:14]
+:END:
+
+Es interesante poder añadir automáticamente la fecha de última modificación de los ficheros. Emacs cuenta con esta funcionalidad con la función =time-stamp=. Ver [[https://www.emacswiki.org/emacs/TimeStamp][EmacsWiki]] para más información.
+
+La idea es definir un patrón de búsqueda detrás del cual, Emacs agregará la fecha cada vez que el fichero se salve. Claro está que para ello hay que añadir a =before-save-hook= la función =time-stamp=.
+
+*Nota:* Como bien dicen no es muy recomendable definir este patrón globalmente!!.
+
+Por ello Emacs ofrece muchas opciones de configuración a distintos niveles.
+- /Directorio/: Es una opción interesante que permite definir este patrón para todos los archivos en un directorio concreto. (Muy interesante para definirlo para todo un proyecto)
+- /Archivo/: Para ello se inserta un comentario con la definición del patrón (al estilo de "lexical-bindings" en los ficheros emacs-lisp.
+- /Tipo de archivo/: Para ello se solo hay que definir esta variable como local en una función /lambda/ y agregarla al hook correspondiente.
+
+Mi interés es principalmente para el fichero de configuración, por lo que a nivel de directorio sería muy satisfactorio. No obstante, esta misma funcionalidad puede interesarme para todos los ficheros org. Por lo que voy a probar a implementar esta funcionalidad insertando la fecha como una propiedad global del documento, y definiendo el patrón a nivel de /tipo de archivo/.
+
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook (lambda ()
+                                  (set (make-local-variable 'time-stamp-pattern)
+                                       "8/updated:[ \t]+\\\\?[\"<]+%:y-%02m-%02d %02H:%02M:%02S\\\\?[\">]")))
+
+  (add-hook 'before-save-hook #'time-stamp)
+
+#+end_src
+
 
 * Tareas pendientes [0/21]
 
