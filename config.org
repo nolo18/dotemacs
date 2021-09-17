@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-17 19:58:50>
+#+updated: <2021-09-17 20:51:18>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e) |CANCELADO(c@) HECHO(h!)
@@ -424,6 +424,33 @@ Me interesa activar de modo automático para todos los modos de programación al
                                 (display-fill-column-indicator-mode)))
 #+end_src
 
+*** Específico para algunos modos.
+**** C
+Tabulación en C. Usar tabulador de cuatro espacios para el código y utilizar el estilo "linux"
+
+#+begin_src emacs-lisp
+  (setq-default c-default-style "linux"
+                c-basic-offset 4)
+
+  (add-hook 'c-mode-hook #'(lambda ()
+                             (setq-local indent-tabs-mode t)))
+#+end_src
+
+
+
+** INVESTIGANDO Tabuladores
+:LOGBOOK:
+- State "INVESTIGANDO" from "TODO"       [2021-09-17 vie 20:49]
+:END:
+Todavía no tengo claro si quiero utilizar tabuladores o espacios para indentar mis ficheros. Es algo que tengo que estudiar cuidadosamente.
+
+En principio voy a utilizar cuatro espacios para indentar de modo general... Cambiaré eso para algunos modos (Como C que usará tabuladores de 4 espacios para indentar).
+
+#+begin_src emacs-lisp
+  (setq-default tab-width 4
+            indent-tabs-mode nil)
+#+end_src
+
 * Tareas pendientes [0/21]
 
 Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de cosas que quiero hacer, si no, las olvido rápidamente.
@@ -521,9 +548,6 @@ El uso de etiquetas es muy útil a la hora de buscar cosas, pero definir bien la
 
 ** TODO Echar un vistazo a ERC
 Puede ser interesante tener el irc integrado aquí.
-
-** TODO Tabuladores
-Todavía no tengo claro si quiero utilizar tabuladores o espacios para indentar mis ficheros. Es algo que tengo que estudiar cuidadosamente.
 
 ** TODO /user-emacs-directory/ limpio
 Quiero que mi directorio de configuración esté limpio. En otros tiempos era muy buena idea tener todo lo relativo a emacs en el directorio de configuración, pero hoy en día con =xdesktop= todo ha cambiado, y existen un montón de directorios en el sistema mucho más apropiados para poner según que cosas. Estos directorios se guardan en variables de entorno, como /XDG_CONFIG_HOME, XDG_DATA_DIRS/, etc... Es ahí donde quiero poner todos los ficheros que genere esta configuración, así como los paquetes que instale.
