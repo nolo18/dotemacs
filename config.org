@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-19 10:19:42>
+#+updated: <2021-09-19 10:28:51>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -52,6 +52,8 @@ Los valores por defecto de las siguientes opciones me resultan bastante intrusiv
    scroll-margin 5
    ;; No mostrar el cursor en las ventanas no seleccinadas
    cursor-in-non-selected-windows nil
+   ;; Cambiar el modo inicial del buffer scratch a "fundmental"
+   initial-major-mode 'fundamental-mode
    )
 #+end_src
 
