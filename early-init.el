@@ -53,7 +53,11 @@
 ;; NOTA: El resto de frames, tal vez no sea buena idea maximizarlas.
 
 (setq initial-frame-alist
-      '((fullscreen . maximized)))	;Iniciar Emacs maximizado
+      '((fullscreen . maximized)        ;Iniciar maximizado
+        (tool-bar-lines . 0)            ;eliminar la barra de herramientas
+        (vertical-scroll-bars . nil)    ;eliminar la barra de desplazamiento vert.
+        (horizontal-scroll-bars . nil)  ;eliminar la barra de desplazamiento hor.
+        ))
 
 (provide 'early-init)
 ;;; early-init.el ends here
