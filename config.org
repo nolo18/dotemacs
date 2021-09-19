@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-17 20:51:18>
+#+updated: <2021-09-19 09:25:08>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e) |CANCELADO(c@) HECHO(h!)
@@ -347,14 +347,6 @@ Esta configuración hace que cualquier interacción, aunque proceda de una acci�
 
 #+begin_src emacs-lisp
   (setq use-dialog-box nil)
-#+end_src
-
-** C-k borra la linea completa
-
-Esta es la misma funcionalidad que en vim/nvim. Pero últimamente me he acostumbrado a borrar desde la posición actual hasta el final y no se si quiero cambiar eso. Lo voy a probar un tiempo en cualquier caso. (de momento va perdiendo puntos).
-
-#+begin_src emacs-lisp
-  (setq kill-whole-line t)
 #+end_src
 
 ** Ubicación de /custom_file/
