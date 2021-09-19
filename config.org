@@ -1,8 +1,8 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-19 09:58:09>
+#+updated: <2021-09-19 10:12:59>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
-#+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e) |CANCELADO(c@) HECHO(h!)
+#+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
 #+startup: indent content
 
 * Descripción.
@@ -338,6 +338,8 @@ Aunque con los asteriscos queda bien, prefiero mostrar otros caracteres utf-8 m�
 
 #+begin_src emacs-lisp
   (use-package org-bullets
+    :config
+    (setq org-bullets-bullet-list '("●" "○" "▶" "■"))
     :hook (org-mode . (lambda () (org-bullets-mode 1))))
 #+end_src
 
