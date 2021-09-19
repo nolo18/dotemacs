@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-19 10:28:51>
+#+updated: <2021-09-19 19:32:13>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -299,6 +299,17 @@ Después de tantos años usando =Emacs=, soy incapaz de recordar mas del 1% de l
     :diminish
     :config
     (which-key-mode 1))
+#+end_src
+
+** vterm
+[[https://github.com/akermu/emacs-libvterm][github repo]]
+
+Es con diferencia uno de los mejores emuladores de terminal para Emacs.
+
+Requiere la instalación de algunos paquetes en el sistema, como /libvterm-dev, libtool-bin/ en debian. En arch /libvterm libtool-bin/. Y en el resto seguro que también se encuentran estos paquetes.
+
+#+begin_src emacs-lisp
+  (use-package vterm)
 #+end_src
 
 * Org-mode
