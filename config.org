@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-19 09:27:44>
+#+updated: <2021-09-19 09:58:09>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e) |CANCELADO(c@) HECHO(h!)
@@ -177,6 +177,19 @@ Son altamente configurables, y tanto el tema claro como el oscuro son de los má
     (modus-themes-load-themes)
     :config
     (modus-themes-load-operandi))
+#+end_src
+
+** Resaltar "TODO, INFO, etc"
+
+Aunque existe un paquete para este cometido, es tan fácil hacerlo que no merece la pena instalarlo.
+
+#+begin_src emacs-lisp
+  (defun highlight-todos ()
+  "Highlight all TODO keywords in current buffer"
+    (font-lock-add-keywords nil
+               '(("\\<\\(FIXME\\|TODO\\|BUG\\|INFO\\|NOTE\\):" 1 font-lock-warning-face t))))
+
+  (add-hook 'prog-mode-hook 'highlight-todos)
 #+end_src
 
 * Útiles
