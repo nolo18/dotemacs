@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-19 19:32:13>
+#+updated: <2021-09-19 19:36:11>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -456,6 +456,12 @@ Tabulación en C. Usar tabulador de cuatro espacios para el código y utilizar e
 #+end_src
 
 
+**** bison/flex
+No estoy muy metido en esto, pero parece interesante para hacer algunos experimentos.
+
+#+begin_src emacs-lisp
+  (use-package bison-mode)
+#+end_src
 
 ** INVESTIGANDO Tabuladores
 :LOGBOOK:
