@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-19 19:36:11>
+#+updated: <2021-09-20 19:14:29>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -450,9 +450,6 @@ Tabulación en C. Usar tabulador de cuatro espacios para el código y utilizar e
 #+begin_src emacs-lisp
   (setq-default c-default-style "linux"
                 c-basic-offset 4)
-
-  (add-hook 'c-mode-hook #'(lambda ()
-                             (setq-local indent-tabs-mode t)))
 #+end_src
 
 
