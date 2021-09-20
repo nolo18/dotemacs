@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-20 19:38:54>
+#+updated: <2021-09-20 19:57:44>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -327,6 +327,25 @@ Además para los lenguajes tipo lisp, y demás, puedes seleccionar /smartparens-
            ('lisp-mode . 'smartparens-strict-mode)))
 #+end_src
 
+** ace-window
+
+#+begin_src emacs-lisp
+  (use-package ace-window
+    :config
+    ;; Hacer los indicadores un poco más grandes
+    (set-face-attribute 'aw-leading-char-face nil :height 2.0)
+    ;; Usar las teclas de la fila central
+    (setq
+     aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+     ;; No sombrear las ventanas durante la transición
+     aw-background nil
+     ;; Utilizar solo las ventanas en el "frame" actual
+     aw-scope 'frame
+     ;; Ignorar la ventana actualmente utilizada
+     aw-ignore-current t)
+    :bind (("C-x o" . ace-window)))
+#+end_src
+
 * Org-mode
 [[https://orgmode.org/][Org-mode]]
 
@@ -466,7 +485,6 @@ Tabulación en C. Usar tabulador de cuatro espacios para el código y utilizar e
   (setq-default c-default-style "linux"
                 c-basic-offset 4)
 #+end_src
-
 
 **** bison/flex
 No estoy muy metido en esto, pero parece interesante para hacer algunos experimentos.
