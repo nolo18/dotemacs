@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-20 19:57:44>
+#+updated: <2021-09-21 19:29:52>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -319,6 +319,8 @@ Además para los lenguajes tipo lisp, y demás, puedes seleccionar /smartparens-
 
 #+begin_src emacs-lisp
   (use-package smartparens
+    :config
+    (require 'smartparens-config)
     :hook (('prog-mode-hook . #'(lambda ()
                                   (smartparens-mode 1)
                                   (show-smartparens-mode 1)))
@@ -506,72 +508,18 @@ En principio voy a utilizar cuatro espacios para indentar de modo general... Cam
             indent-tabs-mode nil)
 #+end_src
 
-* Tareas pendientes [0/21]
+* Tareas pendientes [0/16]
 
 Tengo mala cabeza, para qué lo vamos a negar. Necesito llevar un registro de cosas que quiero hacer, si no, las olvido rápidamente.
-
-** TODO Straight.el
-
-[[Gestor de paquetes]]
-
-*Nota:* ver [[variables locales.]] Aquí sería interesante tener definida ya una variable local para mi directorio "$HOME/.local/share/emacs". Creo que este es el directorio adecuado. /nvim lo usa/.
-
-- En principio no hay manera de que =straight.el= instale los paquetes en una ruta fuera de =user-emacs-directory=.
 
 ** TODO Echar un vistazo a paquetes que son recomendados por muchos.
   - [ ] undo-tree
   - [ ] all-the-icons; all-the-icons-dired
   - [ ] diminish (seguramente si) No quiero el "modeline" lleno de
   información innecesaria.
-  - [ ] doom-themes; doom-modeline -> Quiero algo más limpio. Para
-  eso instalo doom directamente.
   - [ ] tree-sitter Parece ser que hace bastante bien su trabajo
   en cuanto al resaltado de sintaxis.
-  - [ ] centaru-tabs -> No creo que quiera pestañas pero echaré
-  un vistazo.
-  - [-] sudo-edit -> Esto si es interesante si quiero editar ficheros
-  de configuración sin tener que hacerlo en consola.
-  - [-] which-key -> Definitivamente si.
   - [ ] bufler -> ¿?
-  - [ ] ace-window -> Definitivamente si. Después de haber estado
-  un tiempo utilizando "other-window" it is not a great thig. Mirar
-  esta configuración.
-     (use-package ace-window
-       :config
-       ;; Show the window designators in the modeline.
-       (ace-window-display-mode)
-
-        ;; Make the number indicators a little larger. I'm getting old.
-       (set-face-attribute 'aw-leading-char-face nil :height 2.0 :background "black")
-
-       (defun my-ace-window (args)
-         "As ace-window, but hiding the cursor while the action is active."
-         (interactive "P")
-         (cl-letf
-             ((cursor-type nil)
-              (cursor-in-non-selected-window nil))
-           (ace-window nil)))
-
-
-       :bind (("C-," . my-ace-window))
-       :custom
-       (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l) "Designate windows by home row keys, not numbers.")
-       (aw-background nil))
-
-  - [ ] org-bullets -> ¿Por qué no?
-  - [ ] magit -> Por supuestísimo.... (ejemplo)
-     (use-package magit
-     	   :diminish magit-auto-revert-mode
-     	   :diminish auto-revert-mode
-     	   :bind (("C-c g" . #'magit-status))
-     	   :custom
-     	   (magit-repository-directories '(("~/src" . 1)))
-     	   :config
-     	   (add-to-list 'magit-no-confirm 'stage-all-changes))
-
-   - [ ] Projectile -> Claro que si.. Mirar documentación por si hay
-   algo realmente interesante.
-   - [ ] Ivi, counsel, swiper -> Creo que vertico es más eficiente.
    - [ ] flycheck -> Por ahora no.
    - [ ] deadgrep -> ¿?
    - [ ] visual-regexp
@@ -603,27 +551,6 @@ Una manera de configurar los emojis facilmente sería algo así.
 
 ** TODO Desactivar atajos de teclados
 Hay un montón de atajos de teclados que, en mi humilde opinión, son del todo inútiles, al menos para mí, y que pueden ser pulsados de modo accidental. Mejor desactivarlos.
-
-** TODO variables locales.
-No tengo todavía claro si voy a definir algunas variables locales en mi configuración, seguramente si. Según parece pueden dar algún que otro problema de incómodos avisos de seguridad. La manera de desactivar esos avisos es habilitando las variables locales.
-
-#+begin_src emacs-lisp :tangle no
-  (setq enable-local-variables :all)
-#+end_src
-
-** ENCURSO Seleccionar fuente por defecto.
-Creo que lo mejor es hacerlo con un =cond= y comprobar por orden de preferencia las fuentes instaladas en el equipo (así se hace más portable la configuración) y utilizar la primera coincidencia. Si no hay ninguna no cambiarla y dejar /DejaVu/ que es la que trae por defecto y tal vez emitir alguna alerta o algo...
-En principio está puesta /SauceCodePro Nerd Font Mono/ como fuente por defecto y no hay más opciones en el cond. Habrá que ir probando.
-
-** TODO Resaltar parejas de paréntesis y demás...
-Lo mismo instalo smartparens y mato unos cuantos pájaros de un tiro.
-- Se autoinserta el cierre correspondiente
-- Se resalta el par asociado
-- Obtengo la funcionalidad de paredit con =spartparens-strict-mode=
-
-#+begin_src emacs-lisp
-  (show-paren-mode 1)
-#+end_src
 
 ** INVESTIGANDO fill-column y amigos.
 :LOGBOOK:
