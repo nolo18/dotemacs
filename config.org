@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-21 19:29:52>
+#+updated: <2021-09-26 07:53:16>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -493,6 +493,16 @@ No estoy muy metido en esto, pero parece interesante para hacer algunos experime
 
 #+begin_src emacs-lisp
   (use-package bison-mode)
+#+end_src
+
+** ENCURSO markdown-mode
+:LOGBOOK:
+- State "ENCURSO"    from              [2021-09-26 dom 07:51]
+:END:
+Me parece del todo increible, pero emacs no cuenta por defecto con un modo para editar archivos markdown.
+Instalación básica por ahora, sin ninguna configuración.
+#+begin_src emacs-lisp
+  (use-package markdown-mode)
 #+end_src
 
 ** INVESTIGANDO Tabuladores
