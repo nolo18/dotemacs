@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-27 20:55:37>
+#+updated: <2021-09-27 21:03:44>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -303,6 +303,14 @@ Es muy interesante tener la opción de editar archivos como superusuario manteni
   (use-package sudo-edit)
 #+end_src
 
+** flycheck
+[[https://www.flycheck.org/en/latest/index.html][flychek]]
+En principio solo lo voy a utilizar con *lsp-mode* porque se integra mucho mejor que flymake, pero cuenta con su propio apartado porque su configuración puede llegar a ser bastante extensa.
+
+#+begin_src emacs-lisp
+  (use-package flycheck)
+#+end_src
+
 ** vertico
 [[https://github.com/minad/vertico][home]]
 Me gusta seleccionar archivos, buffers y demás de forma interactiva, y según parece este nuevo complemento es de lo más liviano que conozco.
@@ -395,6 +403,34 @@ Además para los lenguajes tipo lisp, y demás, puedes seleccionar /smartparens-
     :bind (("C-x o" . ace-window)))
 #+end_src
 
+** lsp
+[[https://emacs-lsp.github.io/lsp-mode/][language server protocol]]: Ofrece funcionalidades de =IDE= para emacs.
+A diferencia de mi configuración de /doom-emacs/, puede que no quiera estas funcionalidades para todos los lenguages posibles, y quiera algo más sencillo, pero de momento la instalo para *Rust*.
+
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :config
+    (setq lsp-keymap-prefix "C-c l"
+          lsp-log-io nil)
+    :commands (lsp lsp-deferred))
+#+end_src
+
+Aunque se puede trabajar perfectamente con esta configuración, usando =flymake= y =completion-at-point=. Para una mejor experiencia, se recomiendan otros paquetes adicionales.
+
+*lsp-ui*
+Para mostrar documentación y demás errores en la misma línea.
+
+#+begin_src emacs-lisp
+  (use-package lsp-ui
+    :commands lsp-ui-mode)
+#+end_src
+
+*company-mode*
+Para mostrar autocompletados. No solamente se usa con lsp, por eso cuenta con su propio apartado de instalación en _Útiles_ junto con el resto de paquetes de utilidad general.
+
+*flycheck*
+Es un buen /linter/. En principio creo que solo lo voy a utilizar con lsp. No obstante, como su configuración puede ser larga, refiero incuirlo en el apartado de _Útiles_.
+
 ** Company
 [[https://company-mode.github.io/][Company-mode]] es un buen =autocompletion-framework= y trabaja bastante bien. En principio lo quiero utilizar para facilitar el autocompletado al editar archios elisp, aunque también va a ser utilizado por *lsp-mode* en los modos que lo requieran.
 
@@ -405,6 +441,7 @@ Además para los lenguajes tipo lisp, y demás, puedes seleccionar /smartparens-
           ('lisp-interaction-mode . 'company-mode)
           ('emacs-lisp-mode . 'company-mode)))
 #+end_src
+
 * Org-mode
 [[https://orgmode.org/][Org-mode]]
 
