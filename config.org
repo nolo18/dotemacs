@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-26 07:53:16>
+#+updated: <2021-09-27 20:00:17>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -181,9 +181,16 @@ Son altamente configurables, y tanto el tema claro como el oscuro son de los má
     (modus-themes-load-operandi))
 #+end_src
 
-** Resaltar "TODO, INFO, etc"
+** TODO Resaltar "TODO, INFO, etc"
+:LOGBOOK:
+- State "TODO"       from              [2021-09-27 lun 19:22]
+:END:
 
 Aunque existe un paquete para este cometido, es tan fácil hacerlo que no merece la pena instalarlo.
+
+Queda pendiente definir diferentes colores.
+
+*Nota:* Estos colores no pueden depender de ningún paquete instalado, debe venir por defecto instalado con emacs.
 
 #+begin_src emacs-lisp
   (defun highlight-todos ()
@@ -193,6 +200,35 @@ Aunque existe un paquete para este cometido, es tan fácil hacerlo que no merece
 
   (add-hook 'prog-mode-hook 'highlight-todos)
 #+end_src
+
+** Iconos
+Aunque no es completamente necesario, dado lo fácil que resulta configurarlo, me parece interesante instalar [[https://github.com/domtronn/all-the-icons.el][all-the-icons]] y [[https://github.com/jtbm37/all-the-icons-dired][all-the-icons-dired]] para conseguir tener un aspecto más amigable tanto en dired, como en otros paquetes que puedan requerirlo más adelante.
+
+#+begin_src emacs-lisp
+  (use-package all-the-icons
+    :config
+    ;; TODO: checking for all-the-icons-font doesn't works
+    (unless (x-family-fonts "weathericons")
+      (all-the-icons-install-fonts)))
+#+end_src
+
+*** Mostrar iconos en dired
+
+[[https://github.com/jtbm37/all-the-icons-dired][all-the-icons-dired]] cuenta con el modo =all-the-icons-dired-mode= que hace que se muestren los iconos corresondientes a cada tipo de archivo.
+
+#+begin_src emacs-lisp
+  (use-package all-the-icons-dired
+    :ensure all-the-icons
+    ;; hook directive seems to not work correctly.
+    ;;:hook (dired-mode-hook . all-the-icons-dired-mode)
+    :init
+    (unless (x-family-fonts "weathericons")
+      (all-the-icons-install-fonts))
+    :config
+    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+    )
+#+end_src
+
 
 * Útiles
 Colección de paquetes de utilidad general que facilitan mucho la vida.
@@ -226,6 +262,7 @@ Una librería muy interesante para manejar proyectos en Emacs.
 
 #+begin_src emacs-lisp
   (use-package projectile
+    :ensure ripgrep
     :init
     (setq
      ;; Ordena los ficheros y los buffers anteponiendo los
@@ -321,9 +358,9 @@ Además para los lenguajes tipo lisp, y demás, puedes seleccionar /smartparens-
   (use-package smartparens
     :config
     (require 'smartparens-config)
-    :hook (('prog-mode-hook . #'(lambda ()
-                                  (smartparens-mode 1)
-                                  (show-smartparens-mode 1)))
+    :hook (('prog-mode . #'(lambda ()
+                             (smartparens-mode 1)
+                             (show-smartparens-mode)))
            ('emacs-lisp-mode . 'smartparens-strict-mode)
            ('lisp-interaction-mode . 'smartparens-strict-mode)
            ('lisp-mode . 'smartparens-strict-mode)))
