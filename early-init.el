@@ -57,6 +57,7 @@
         (tool-bar-lines . 0)            ;eliminar la barra de herramientas
         (vertical-scroll-bars . nil)    ;eliminar la barra de desplazamiento vert.
         (horizontal-scroll-bars . nil)  ;eliminar la barra de desplazamiento hor.
+        (menu-bar-lines . 0)            ;eliminar la barra de menus
         ))
 
 (provide 'early-init)
