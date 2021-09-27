@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-27 20:30:50>
+#+updated: <2021-09-27 20:55:37>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -395,6 +395,16 @@ Además para los lenguajes tipo lisp, y demás, puedes seleccionar /smartparens-
     :bind (("C-x o" . ace-window)))
 #+end_src
 
+** Company
+[[https://company-mode.github.io/][Company-mode]] es un buen =autocompletion-framework= y trabaja bastante bien. En principio lo quiero utilizar para facilitar el autocompletado al editar archios elisp, aunque también va a ser utilizado por *lsp-mode* en los modos que lo requieran.
+
+#+begin_src emacs-lisp
+  (use-package company
+    :commands company-mode
+    :hook(
+          ('lisp-interaction-mode . 'company-mode)
+          ('emacs-lisp-mode . 'company-mode)))
+#+end_src
 * Org-mode
 [[https://orgmode.org/][Org-mode]]
 
