@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-27 21:03:44>
+#+updated: <2021-09-27 21:19:01>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -409,7 +409,7 @@ A diferencia de mi configuración de /doom-emacs/, puede que no quiera estas fun
 
 #+begin_src emacs-lisp
   (use-package lsp-mode
-    :config
+    :init
     (setq lsp-keymap-prefix "C-c l"
           lsp-log-io nil)
     :commands (lsp lsp-deferred))
@@ -580,7 +580,8 @@ Tabulación en C. Usar tabulador de cuatro espacios para el código y utilizar e
   (use-package rustic
     :config
     (setq rustic-format-on-save nil
-          rustic-flycheck-setup-mode-line-p nil))
+          rustic-flycheck-setup-mode-line-p nil)
+    (remove-hook 'rustic-mode-hook 'flycheck-mode))
 #+end_src
 
 **** bison/flex
