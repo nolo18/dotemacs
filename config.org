@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-27 20:00:17>
+#+updated: <2021-09-27 20:30:50>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -95,6 +95,16 @@ El tratamiento de los espacios en blanco al final de las lineas está más que c
 #+begin_src emacs-lisp
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (setq require-final-newline t)
+#+end_src
+
+=Emacs= almacena cualquier configuración que se realice a través de su sistema de configuración visual o utilizando la función =custom-set-variable= en el archivo de configuración inicial, o si se define este fichero en la variable =custom-file=. De igual modo, se almacena cierta información de seguridad y fiabilidad de algunos esquemas de color y demás.
+
+Yo quiero mi archivo de configuración limpio de intrusiones de cualquier tipo, así que prefiero especificar el archivo donde guardar estas configuraciones automáticas. (Aunque no creo que hayan muchas).
+
+*Nota:* La ubicación de este fichero aún no es definitiva.
+
+#+begin_src emacs-lisp
+  (setq custom-file (expand-file-name ".custom.el" user-emacs-directory))
 #+end_src
 
 * Gestor de paquetes
@@ -457,17 +467,6 @@ Esta configuración hace que cualquier interacción, aunque proceda de una acci�
   (setq use-dialog-box nil)
 #+end_src
 
-** Ubicación de /custom_file/
-=Emacs= almacena cualquier configuración que se realice a través de su sistema de configuración visual o utilizando la función =custom-set-variable= en el archivo de configuración inicial, o si se define este fichero en la variable =custom-file=. De igual modo, se almacena cierta información de seguridad y fiabilidad de algunos esquemas de color y demás.
-
-Yo quiero mi archivo de configuración limpio de intrusiones de cualquier tipo, así que prefiero especificar el archivo donde guardar estas configuraciones automáticas. (Aunque no creo que hayan muchas).
-
-*Nota:* La ubicación de este fichero aún no es definitiva.
-
-#+begin_src emacs-lisp
-  (setq custom-file (expand-file-name ".custom.el" user-emacs-directory))
-#+end_src
-
 ** INVESTIGANDO Insertar automáticamente la fecha de modificación para los ficheros org
 :LOGBOOK:
 - State "INVESTIGANDO" from              [2021-09-17 vie 19:14]
@@ -523,6 +522,18 @@ Tabulación en C. Usar tabulador de cuatro espacios para el código y utilizar e
 #+begin_src emacs-lisp
   (setq-default c-default-style "linux"
                 c-basic-offset 4)
+#+end_src
+
+**** rust
+[[https://github.com/yssource/rustic][rustic]] es clon de [[https://github.com/rust-lang/rust-mode][rust-mode]] que añade gran cantidad de funcionalidades.
+
+*Nota:* Por defecto rustic arranca siempre el servidor "lsp" o pregunta si queremos instalarlo si no lo tenemos instalado. Aunque podría requerirlo aquí prefiero configurarlo aparte porque puedo querer utilizarlo en otros muchos sitios.
+
+#+begin_src emacs-lisp
+  (use-package rustic
+    :config
+    (setq rustic-format-on-save nil
+          rustic-flycheck-setup-mode-line-p nil))
 #+end_src
 
 **** bison/flex
