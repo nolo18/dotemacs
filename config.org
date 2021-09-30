@@ -1,5 +1,5 @@
 #+title: Configuración de Emacs
-#+updated: <2021-09-30 18:59:42>
+#+updated: <2021-09-30 19:06:22>
 #+author: M. Márquez
 #+email: nolo18@khelent.xyz
 #+todo: TODO(t!) INVESTIGANDO(i!) ENCURSO(e!) |CANCELADO(c@) HECHO(h!)
@@ -195,6 +195,17 @@ Queda pendiente definir diferentes colores.
                '(("\\<\\(FIXME\\|TODO\\|BUG\\|INFO\\|NOTE\\):" 1 font-lock-warning-face t))))
 
   (add-hook 'prog-mode-hook 'highlight-todos)
+#+end_src
+
+** doom-modeline
+Una de las más rápidas y conseguidas
+
+#+begin_src emacs-lisp
+  (use-package doom-modeline
+    :ensure all-the-icons
+    :config
+    (setq doom-modeline-height 20)
+    :init (doom-modeline-mode 1))
 #+end_src
 
 ** Iconos
